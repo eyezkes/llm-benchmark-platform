@@ -1,0 +1,37 @@
+# ── Python ──────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+.pytest_cache/
+
+# ── Environment ─────────────────────────────────────────
+.env
+.env.*
+app/.env
+
+# ── Database / runtime files ─────────────────────────────
+*.db
+*.sqlite
+
+# ── Data & logs ──────────────────────────────────────────
+**/data/datasets/
+**/runs/
+**/logs/
+**/report/
+hf_datasets/
+
+# ── Node / Frontend ──────────────────────────────────────
+node_modules/
+dist/
+.cache/
+*.local
+
+# ── IDE & OS ─────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+.DS_Store
+Thumbs.db
