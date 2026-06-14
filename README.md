@@ -40,11 +40,15 @@ ENCRYPTION_KEY=your-32-byte-fernet-key
 
 ### Running
 
+Run all commands from the `backend/` directory:
+
 ```bash
+cd backend
+
 # API server
 uvicorn app.main:app --reload
 
-# Celery worker (required for async experiment execution)
+# Celery worker (required for async experiment execution) — separate terminal
 celery -A app.tasks.experiment_task worker --loglevel=info
 ```
 
@@ -91,6 +95,7 @@ pytest tests/
 ### Tech Stack
 
 - **React 18** + **Vite** — SPA framework
+- **Axios** — HTTP client
 - **Yarn** — Package manager
 
 ### Setup
@@ -100,9 +105,19 @@ cd frontend
 yarn install
 ```
 
+Create a `.env.local` file in `frontend/` to point at the backend:
+
+```env
+VITE_API_BASE_URL=http://localhost:8000
+```
+
+If this file is omitted, `http://localhost:8000` is used by default.
+
 ### Running
 
 ```bash
+cd frontend
+
 # Development server
 yarn dev
 
@@ -111,3 +126,36 @@ yarn build
 ```
 
 Dev server runs at `http://localhost:5173`.
+
+### Pages
+
+| Route | Description |
+|---|---|
+| `/login` | Login |
+| `/register` | Register |
+| `/` | Dashboard — overview of recent experiments |
+| `/experiments` | List all experiments |
+| `/experiments/:id` | Experiment detail with metric charts |
+| `/models` | Manage LLM models |
+| `/datasets` | Upload and manage datasets |
+| `/judges` | Manage judge models |
+| `/prompts` | Prompt library |
+| `/api-keys` | Manage personal API keys |
+| `/change-password` | Change password |
+
+### Project Structure
+
+```
+frontend/
+├── index.html
+├── vite.config.js
+└── src/
+    ├── main.jsx              # Entry point
+    ├── App.jsx               # Router setup
+    ├── api/                  # Axios client + per-resource service functions
+    ├── components/           # Shared UI components (graphs, logo, etc.)
+    ├── context/              # React context (auth, LLM state)
+    ├── Layout/               # Dashboard shell layout
+    ├── pages/                # One file per route
+    └── constants/            # Color palette, model configs, static data
+```
