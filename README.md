@@ -46,7 +46,7 @@ Run all commands from the `backend/` directory:
 cd backend
 
 # API server
-uvicorn app.main:app --reload
+uvicorn main:app --app-dir app --reload
 
 # Celery worker (required for async experiment execution) — separate terminal
 celery -A app.tasks.experiment_task worker --loglevel=info
